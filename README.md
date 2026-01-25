@@ -1,2 +1,3 @@
-This repository will include pfSense, Wazuh, and network segmentation labs.
+- pfSense VLAN segmentation and firewall rule implementation
+
 
