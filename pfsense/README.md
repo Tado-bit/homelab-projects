@@ -39,3 +39,9 @@ assignment and controlled inter-VLAN access.
 - Importance of firewall rule order
 - Common DHCP misconfiguration issues
 - Practical VLAN troubleshooting
+
+## Security Considerations
+
+- Default deny-all firewall posture
+- Explicit allow rules for required services only
+- Management VLAN restricted to admin hosts
