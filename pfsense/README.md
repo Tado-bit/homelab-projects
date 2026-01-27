@@ -1,48 +1,98 @@
-
 # pfSense VLAN Segmentation Lab
 
-## Objective
-Implement network segmentation using VLANs to separate users,
-servers, and management traffic while enforcing controlled access
-through firewall rules.
+This project documents the design, implementation, and troubleshooting of
+VLAN based network segmentation using pfSense in a virtualized homelab
+environment. The primary goal is to enforce least-privilege access between
+network segments using interface-based firewall rules and aliases.
+
+---
+
+## Lab Objectives
+
+- Implement VLAN-based network segmentation
+- Restrict pfSense management access to a dedicated management network
+- Isolate servers and security/testing hosts from each other
+- Allow controlled outbound internet access
+- Understand and document pfSense firewall rule evaluation behavior
+
+---
 
 ## Environment
-- Firewall: pfSense
-- Virtualization: VMware / Proxmox
-- Client OS: Kali Linux / Windows
-- Switching: Virtual switches
+
+- Firewall: pfSense (virtualized)
+- Hypervisor: VMware / Proxmox (homelab)
+- Client Systems: Kali Linux, Linux servers
+- Networking: VLANs with interface-based firewall rules
+
+---
 
 ## Network Design
-- VLAN 10 – Users
-- VLAN 20 – Servers
-- VLAN 99 – Management
 
-## Implementation Summary
-- Created VLAN interfaces on pfSense
-- Configured DHCP per VLAN
-- Applied firewall rules between segments
+The network is segmented into logical security zones using VLANs and
+pfSense interface-based firewall rules. Firewall aliases are used to
+represent each security zone while the underlying IP subnets are
+explicitly documented for clarity and maintainability.
 
-## Challenges Encountered
-- DHCP clients receiving APIPA addresses
-- Firewall rule order blocking traffic
+- **MGMT_LAN** (192.168.1.0/24)  
+  Dedicated management network used exclusively for pfSense administration
+  and trusted administrative hosts.
 
-## Troubleshooting & Fixes
-- Verified DHCP service binding per interface
-- Corrected firewall rule order
-- Confirmed VLAN tagging on virtual switches
-- Used packet capture to confirm DHCP DISCOVER packets reached pfSense
+- **SERVER_LAN_NET** (192.168.2.0/24)  
+  Isolated server network hosting internal services and infrastructure
+  components.
 
-## Outcome
-Successfully implemented VLAN segmentation with stable DHCP
-assignment and controlled inter-VLAN access.
+- **SECURITY_LAN_NET** (192.168.3.0/24)  
+  Security and testing network used for monitoring, analysis, and
+  controlled experimentation.
 
-## What I Learned
-- Importance of firewall rule order
-- Common DHCP misconfiguration issues
-- Practical VLAN troubleshooting
+---
 
-## Security Considerations
+## Firewall Design Principles
 
-- Default deny-all firewall posture
-- Explicit allow rules for required services only
-- Management VLAN restricted to admin hosts
+- Interface-based rule evaluation (rules apply on ingress)
+- Default-deny posture between internal networks
+- Explicit allow rules for required traffic only
+- Alias-based rule definitions for clarity and scalability
+- Logging enabled on block rules for visibility and troubleshooting
+
+---
+
+## Firewall Rules & Aliases Documentation
+
+Detailed firewall configuration is documented separately to keep this
+README high-level and readable:
+
+- `firewall/aliases.md` – Firewall alias definitions
+- `firewall/mgmt_lan_rules.md` – Management network firewall rules
+- `firewall/server_lan_rules.md` – Server network firewall rules
+- `firewall/security_lan_rules.md` – Security network firewall rules
+- `firewall/rule_order_explained.md` – pfSense rule processing behavior
+
+---
+
+## Troubleshooting & Lessons Learned
+
+- Misordered firewall rules can unintentionally block outbound traffic
+- Broad aliases such as RFC1918 or "LAN subnets" can cause unintended blocks
+- pfSense applies the first matching rule (top-down evaluation)
+- DHCP APIPA issues were traced to incorrect interface bindings
+- Proper documentation simplifies troubleshooting and future changes
+
+---
+
+## Current State
+
+- pfSense management accessible only from MGMT_LAN
+- Internal networks isolated from each other
+- Internet access permitted from all LANs
+- Firewall rules documented and version-controlled in Git
+
+---
+
+## Future Improvements
+
+- Add a DMZ network with inbound NAT rules
+- Implement VPN access (WireGuard) terminating on MGMT_LAN
+- Centralized logging and monitoring (pfSense + Wazuh)
+- Traffic flow diagram with firewall rule mapping
+
