@@ -30,6 +30,7 @@ through firewall rules.
 - Verified DHCP service binding per interface
 - Corrected firewall rule order
 - Confirmed VLAN tagging on virtual switches
+- Used packet capture to confirm DHCP DISCOVER packets reached pfSense
 
 ## Outcome
 Successfully implemented VLAN segmentation with stable DHCP
