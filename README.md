@@ -1,15 +1,21 @@
 
-# Homelab Projects – Networking & Security
+# Homelab Projects
 
-This repository documents hands-on homelab projects focused on
-networking, firewalling, and security fundamentals.
+This repository documents my hands-on IT and networking homelab work.
 
-The goal is to demonstrate practical experience, troubleshooting
-skills, and clear technical documentation.
+## Focus Areas
+- pfSense firewall configuration and VLAN segmentation
+- DHCP, DNS, and network services
+- Troubleshooting and packet capture analysis
+- Security-focused lab design
 
-## Labs Included
-- pfSense VLAN segmentation and firewall rule implementation
+## Lab Environment
+- pfSense
+- Kali Linux
+- Virtualized network segments (VLANs)
+- CompTIA Security+ aligned practices
 
+This repository is continuously updated as I progress.
 ## Tools & Technologies
 - pfSense
 - Kali Linux
