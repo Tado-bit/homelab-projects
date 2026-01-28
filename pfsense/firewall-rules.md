@@ -38,5 +38,16 @@ Only required traffic is explicitly allowed.
 
 ---
 
+## Detailed Rule Documentation
+
+Detailed firewall rules are documented per interface:
+
+- Management LAN: `firewall/mgmgt_lan_rules.md`
+- Server VLAN: `firewall/server_lan_rules.md`
+- Security VLAN: `firewall/security_lan_rules.md`
+- Aliases: `firewall/aliases.md`
+- Rule order considerations: `firewall/rule_order_explained.md`
+
+
 ## Notes
 Rules were tested using packet capture and interface counters.
