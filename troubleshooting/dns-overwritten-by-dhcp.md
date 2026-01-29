@@ -26,7 +26,7 @@ Commands used:
 
 ```bash
 nmcli connection show
-nmcli con mod <CONNECTION_NAME> ipv4.ignore-auto-dns yes
-nmcli con mod <CONNECTION_NAME> ipv4.dns "8.8.8.8 8.8.4.4"
-nmcli con down <CONNECTION_NAME>
-nmcli con up <CONNECTION_NAME>
+nmcli con mod "Wired connection 1" ipv4.ignore-auto-dns yes
+nmcli con mod "Wired connection 1" ipv4.dns "8.8.8.8 8.8.4.4"
+nmcli con down "Wired connection 1"
+nmcli con up "Wired connection 1"
