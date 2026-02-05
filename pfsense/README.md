@@ -1,19 +1,11 @@
-# pfSense VLAN Segmentation Lab
-
-This project documents the design, implementation, and troubleshooting of
-VLAN based network segmentation using pfSense in a virtualized homelab
-environment. The primary goal is to enforce least-privilege access between
-network segments using interface-based firewall rules and aliases.
-
----
-
-## Lab Objectives
+# Lab Objectives
 
 - Implement VLAN-based network segmentation
 - Restrict pfSense management access to a dedicated management network
-- Isolate servers and security/testing hosts from each other
+- Isolate servers, users, and security/testing hosts from each other
 - Allow controlled outbound internet access
 - Understand and document pfSense firewall rule evaluation behavior
+- Validate segmentation through controlled red/blue testing
 
 ---
 
@@ -43,7 +35,10 @@ explicitly documented for clarity and maintainability.
 
 - **SECURITY_LAN_NET** (192.168.3.0/24)  
   Security and testing network used for monitoring, analysis, and
-  controlled experimentation.
+  controlled experimentation (Kali / red-team simulation).
+
+- **USER_LAN_NET** (192.168.4.0/24)  
+  End-user network representing standard client devices.
 
 ---
 
@@ -53,7 +48,26 @@ explicitly documented for clarity and maintainability.
 - Default-deny posture between internal networks
 - Explicit allow rules for required traffic only
 - Alias-based rule definitions for clarity and scalability
+- Floating RFC1918 block rule to prevent lateral movement
 - Logging enabled on block rules for visibility and troubleshooting
+
+---
+
+## VLAN Segmentation Overview
+
+A centralized floating firewall rule is used to block RFC1918 traffic
+between SERVER, SECURITY, and USER VLANs, preventing internal pivoting.
+
+Additional interface rules enforce:
+
+- pfSense Web GUI accessible only from MGMT_LAN
+- SSH to servers permitted only from MGMT_LAN
+- DNS allowed per VLAN
+- Controlled outbound internet access
+
+Detailed VLAN segmentation is documented in:
+
+➡️ `vlan-segmentation.md`
 
 ---
 
@@ -67,6 +81,25 @@ README high-level and readable:
 - `firewall/server_lan_rules.md` – Server network firewall rules
 - `firewall/security_lan_rules.md` – Security network firewall rules
 - `firewall/rule_order_explained.md` – pfSense rule processing behavior
+
+---
+
+## Red / Blue Team Validation
+
+Controlled red-team simulations were performed from SECURITY_LAN to validate:
+
+- VLAN isolation
+- Management plane protection
+- Firewall logging and visibility
+
+Blue-team hardening included:
+
+- GUI isolation
+- RFC1918 lateral movement blocking
+- Server LAN microsegmentation
+- Login protection
+
+Results and mitigations are documented within this repository.
 
 ---
 
@@ -84,6 +117,7 @@ README high-level and readable:
 
 - pfSense management accessible only from MGMT_LAN
 - Internal networks isolated from each other
+- Server access restricted to Management VLAN
 - Internet access permitted from all LANs
 - Firewall rules documented and version-controlled in Git
 
@@ -95,4 +129,3 @@ README high-level and readable:
 - Implement VPN access (WireGuard) terminating on MGMT_LAN
 - Centralized logging and monitoring (pfSense + Wazuh)
 - Traffic flow diagram with firewall rule mapping
-
