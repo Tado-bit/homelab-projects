@@ -1,0 +1,14 @@
+pfSense Multi-VLAN Lab Topology
+
+MGMT_LAN (192.168.1.0/24)
+  |
+pfSense Firewall
+  |
+-----------------------------------
+|        |            |
+SERVER   SECURITY     USER
+192.168.2.0   192.168.3.0   192.168.4.0
+
+- Management plane isolated
+- RFC1918 lateral movement blocked
+- Servers accessible only from MGMT_LAN
