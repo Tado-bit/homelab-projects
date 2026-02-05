@@ -42,6 +42,26 @@ explicitly documented for clarity and maintainability.
 
 ---
 
+## Lab Architecture
+
+The lab follows a hub and spoke model with pfSense acting as the central
+routing and security control point across all VLANs.
+
+Logical flow:
+
+USER_LAN / SECURITY_LAN / SERVER_LAN  
+            ↓  
+         pfSense  
+            ↓  
+          Internet  
+
+Management traffic is isolated to MGMT_LAN and never traverses user or
+security networks.
+
+A topology diagram will be added under `/diagrams` to visually represent
+this design.
+
+
 ## Firewall Design Principles
 
 - Interface-based rule evaluation (rules apply on ingress)
