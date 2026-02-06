@@ -54,6 +54,21 @@ Each project typically includes:
 
 ---
 
+## Project Index
+
+### pfSense Multi-VLAN Security Lab
+- Management plane isolation
+- Server, Security, and User VLAN segmentation
+- Floating RFC1918 lateral movement blocking
+- Controlled red-team validation from Security VLAN
+- Blue-team hardening and firewall logging
+
+Location: `/pfsense`
+
+More projects will be added as the lab expands.
+
+---
+
 ## Approach
 
 Each lab follows a structured workflow:
