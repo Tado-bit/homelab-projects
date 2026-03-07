@@ -1,44 +1,117 @@
-# Homelab Architecture
+# Security Engineering Homelab
 
-## Network Overview
+This repository documents my **cybersecurity homelab**, designed to practice **network engineering, security automation, attack simulation, and SIEM analysis**.  
+It demonstrates a real-world SOC workflow: attackers, detection, automated response, and log analysis.
 
-This homelab simulates a segmented enterprise network with multiple VLANs and security monitoring components.
+---
 
-### VLANs
+## Homelab Architecture
 
-MGMT VLAN      192.168.1.0/24  
-SECURITY VLAN  192.168.2.0/24  
-SERVER VLAN    192.168.3.0/24  
+![Homelab Architecture](diagrams/homelab-network-topology.png)
 
-## Core Infrastructure
+**Network Segmentation:**
 
-- pfSense firewall
-- VLAN segmentation
-- DHCP relay
-- SSH hardened management access
+| VLAN       | Subnet        | Purpose                        |
+|-----------|---------------|--------------------------------|
+| MGMT      | 192.168.1.0/24| Management devices             |
+| SECURITY  | 192.168.2.0/24| Attacker / penetration testing |
+| SERVER    | 192.168.3.0/24| Services, honeypots, SIEM     |
 
-## Security Automation
+**Core Infrastructure:**
 
-Fail2Ban monitors SSH authentication logs and automatically pushes malicious IPs to the pfSense firewall block table.
+- pfSense firewall & VLAN segmentation
+- DHCP relay & server configuration
+- Fail2Ban automated blocking
+- Cowrie SSH/Telnet honeypot
+- Splunk Enterprise (SIEM)
+- Ubuntu / Kali attacker VMs
 
-Flow:
+---
 
-Fail2Ban → pfSense table → firewall block rule
+## Security Automation: Fail2Ban → pfSense → Splunk
 
-## Attack Simulation
+**Objective:** Detect SSH brute-force attempts and automatically block them.
 
-Attack scenarios are executed from a Kali Linux attacker VM.
+**Flow:**
 
-Examples:
+Kali attacker → Ubuntu SSH server → Fail2Ban → pfSense firewall table → Splunk SIEM
 
-- SSH brute-force attacks
-- firewall rule testing
-- packet capture analysis
 
-## Troubleshooting
+**Example Splunk search:**
 
-Real network problems encountered during lab setup:
+```splunk
+index=auth sourcetype=fail2ban*
+| stats count by host, action
 
-- DHCP offer blocked by firewall
-- DNS overwritten by DHCP
-- DHCP relay misconfiguration
+
+## Cowrie Honeypot → Splunk Integration
+
+Objective: Capture SSH/Telnet attacks in real time and visualize in Splunk.
+
+Architecture:
+
+Kali attacker VM
+     │
+     ▼
+Cowrie Honeypot (Ubuntu host)
+     │
+     ▼
+JSON logs → Splunk Universal Forwarder → Splunk Enterprise (index=cowrie)
+
+# Splunk search examples:
+
+# Show all attacks
+index=cowrie
+| table _time src_ip username password eventid
+
+# Count attacks by IP
+index=cowrie
+| stats count by src_ip
+
+# Attack timeline
+index=cowrie
+| timechart count by src_ip
+
+
+## Lessons Learned
+
+- VLAN segmentation is critical for isolating attacker simulations
+
+- Fail2Ban successfully automates SSH blocking
+
+- Cowrie integration provides actionable attack intelligence
+
+- Troubleshooting DHCP/DNS issues improves lab realism
+
+
+## Skills Demonstrated
+
+# Networking:
+
+- VLAN configuration
+
+- DHCP relay and IP management
+
+- Firewall rules and aliases
+
+# Security:
+
+- SSH hardening and brute-force mitigation
+
+- Honeypot deployment (Cowrie)
+
+- Attack simulation and mitigation
+
+# Monitoring / SIEM:
+
+- Log ingestion into Splunk
+
+- Dashboard creation and event correlation
+
+- Real-time security monitoring
+
+# Automation:
+
+- Fail2Ban → pfSense table automation
+
+- Event-driven response
