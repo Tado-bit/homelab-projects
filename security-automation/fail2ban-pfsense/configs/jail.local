@@ -98,14 +98,14 @@ before = paths-debian.conf
 ignorecommand =
 
 # "bantime" is the number of seconds that a host is banned.
-bantime  = 10m
+bantime  = 3600
 
 # A host is banned if it has generated "maxretry" during the last "findtime"
 # seconds.
 findtime  = 10m
 
 # "maxretry" is the number of failures before a host get banned.
-maxretry = 5
+maxretry = 3
 
 # "maxmatches" is the number of matches stored in ticket (resolvable via tag <matches> in actions).
 maxmatches = %(maxretry)s
@@ -276,10 +276,10 @@ action = %(action_)s
 # To use more aggressive sshd modes set filter parameter "mode" in jail.local:
 # normal (default), ddos, extra or aggressive (combines all).
 # See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details.
-#mode   = normal
+mode   = normal
 port    = ssh
-logpath = %(sshd_log)s
-#logpath = /var/log/auth.log
+#logpath = %(sshd_log)s
+logpath = /var/log/auth.log
 backend = systemd
 action = pfsense
 enable = true
