@@ -29,7 +29,7 @@ USER_LAN: 192.168.4.0/24
 
 Hydra command used:
 
-hydra -L users.txt -P pass.txt -t 2 -W 3 https-get://192.168.1.254:445
+hydra -L users.txt -P pass.txt -t 2 -W 3 https-get://192.168.1.254:443
 
 
 ---
