@@ -12,7 +12,7 @@ This lab focuses on detection and defensive validation, not credential compromis
 
 ## Network Context
 
-MGMT_LAN: 192.168.1.0/24 (pfSense GUI on custom port 445)  
+MGMT_LAN: 192.168.1.0/24 (pfSense GUI on custom port 443)  
 SECURITY_LAN: 192.168.2.0/24 (Kali attacker)  
 SERVER_LAN: 192.168.3.0/24  
 USER_LAN: 192.168.4.0/24  
@@ -21,7 +21,7 @@ USER_LAN: 192.168.4.0/24
 
 ## Method
 
-1. Temporarily allowed TCP 445 from SECURITY_LAN to pfSense (floating/interface rule).
+1. Temporarily allowed TCP 443 from SECURITY_LAN to pfSense (floating/interface rule).
 2. Temporarily enabled WebConfigurator listening on SECURITY_LAN.
 3. Generated controlled HTTPS traffic using Hydra with small credential lists.
 4. Observed firewall logs for repeated connection attempts.
@@ -36,7 +36,7 @@ hydra -L users.txt -P pass.txt -t 2 -W 3 https-get://192.168.1.254:443
 
 ## Observations
 
-- Repeated TCP 445 connections from SECURITY_LAN were visible in pfSense firewall logs.
+- Repeated TCP 443 connections from SECURITY_LAN were visible in pfSense firewall logs.
 - Management plane exposure was confirmed only while temporary rules were active.
 - After cleanup, SECURITY_LAN could no longer reach the pfSense GUI.
 
