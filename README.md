@@ -1,88 +1,60 @@
-# Homelab Projects
+Homelab Projects
 
-This repository documents my hands-on networking and security homelab projects,
-focused on building, testing, and hardening segmented network environments.
+This repository showcases hands-on networking and security engineering projects focused on designing, implementing, and validating segmented network environments.
 
-The labs simulate real-world enterprise scenarios using pfSense, VLANs, and
-controlled red/blue testing to validate firewall behavior and security design.
+The lab environments simulate real-world enterprise architectures using pfSense, VLAN segmentation, and controlled adversarial testing to evaluate and strengthen security controls.
 
----
+Core Focus Areas
+pfSense firewall deployment and multi-VLAN segmentation
+Network isolation (management, servers, and user zones)
+DHCP, DNS, and internal infrastructure services
+Packet capture, traffic analysis, and troubleshooting
+Red/Blue team (purple team) validation of network security controls
+Secure lab architecture design with full technical documentation
+Lab Environment
+pfSense (virtualized firewall)
+Kali Linux (offensive security testing)
+Linux servers (infrastructure and services)
+VLAN-based segmented virtual networks
+Proxmox / VMware virtualization platforms
+Tools & Technologies
+pfSense
+Kali Linux
+Proxmox / VMware
+Nmap, Hydra (controlled testing only)
+Linux networking tools (tcpdump, ip, netstat)
+Git & GitHub (version control and documentation)
+Project Structure
 
-## Focus Areas
+Each project includes:
 
-- pfSense firewall configuration and multi-VLAN segmentation
-- Management plane isolation and server microsegmentation
-- DHCP, DNS, and internal network services
-- Troubleshooting and packet capture analysis
-- Red/Blue (purple team) validation of security controls
-- Security-focused lab design with full documentation
+Network architecture design and objectives
+Firewall rules and segmentation strategy
+Controlled red-team validation scenarios
+Blue-team detection, logging, and hardening
+Troubleshooting and packet analysis
+Lessons learned and improvements
+Version-controlled documentation
+Project Index
+pfSense Multi-VLAN Security Lab
+Management plane isolation
+Segmentation across Server, Security, and User VLANs
+RFC1918 lateral movement restrictions using firewall rules
+Controlled red-team testing from isolated VLAN
+Blue-team monitoring, logging, and rule refinement
 
----
+📁 Location: /pfsense
 
-## Lab Environment
+Methodology
 
-- pfSense (virtualized)
-- Kali Linux (security testing)
-- Linux servers
-- Virtualized network segments (VLANs)
-- CompTIA Security+ aligned practices
+Each lab follows a structured engineering workflow:
 
----
+Design the network and security architecture
+Implement VLANs and firewall policies
+Validate behavior through controlled testing
+Analyze logs and packet-level traffic
+Harden configurations based on findings
+Document results and improvements in Git
+Continuous Development
 
-## Tools & Technologies
-
-- pfSense
-- Kali Linux
-- Git & GitHub
-- VMware / Proxmox
-- Nmap, Hydra (controlled lab testing)
-- Linux networking utilities
-
----
-
-## Project Structure
-
-Each project typically includes:
-
-- Network design and objectives
-- Firewall rules and segmentation logic
-- Red-team validation (controlled attack simulation)
-- Blue-team hardening and mitigation
-- Troubleshooting notes
-- Lessons learned
-- Version-controlled documentation
-
----
-
-## Project Index
-
-### pfSense Multi-VLAN Security Lab
-- Management plane isolation
-- Server, Security, and User VLAN segmentation
-- Floating RFC1918 lateral movement blocking
-- Controlled red-team validation from Security VLAN
-- Blue-team hardening and firewall logging
-
-Location: `/pfsense`
-
-More projects will be added as the lab expands.
-
----
-
-## Approach
-
-Each lab follows a structured workflow:
-
-1. Design the network and security model  
-2. Implement firewall and VLAN rules  
-3. Validate behavior through testing  
-4. Observe logs and traffic patterns  
-5. Harden based on findings  
-6. Document outcomes in Git  
-
-This approach reinforces both networking fundamentals and defensive security
-engineering practices.
-
----
-
-This repository is actively updated as my skills continue to grow.
+This repository is actively maintained and expanded as new scenarios, tools, and security techniques are explored.
